@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz</title>
+</head>
+<body>
+  <h1>Quiz</h1>
+
+  <div id="question">
+    <h2>Question 1:</h2>
+    <p>are you beautiful?</p>
+    <ul>
+      <li><input type="radio" name="q1" value="yes"> yes</li>
+      <li><input type="radio" name="q1" value="no"> no</li>
+      <li><input type="radio" name="q1" value=""> </li>
+    </ul>
+    <button onclick="checkAnswer(1)">Submit</button>
+  </div>
+
+  <div id="result" style="display: none;">
+    <p id="feedback"></p>
+    <button onclick="nextQuestion()">Next Question</button>
+  </div>
+
+  <script>
+    var questions = [
+      {
+        question: "What is the first thing I noticed about you?",
+        choices: ["your beautiful eyes", "your angelic face", "your hair"],
+        correctAnswer: "your beautiful eyes"
+      },
+      {
+        question: "What do I love about you?",
+        choices: ["your smile", "when you love yourself", "everything"],
+        correctAnswer: "everything"
+      },
+      {
+        question: "What wass the first nickname I gave you?",
+        choices: ["big butt", "crack monkey", "baby feet"],
+        correctAnswer: "crack monkey"
+      },
+      {
+        question: "When is our anniversary?",
+        choices: ["jan 9", "sep 9", "dec 9"],
+        correctAnswer: "jan 9"
+      },
+      {
+        question: "In what game did we meet in?",
+        choices: ["adopt me", "pet swarm sim", "bloxburg"],
+        correctAnswer: "pet swarm sim"
+      },
+      {
+        question: "who loves who more?",
+        choices: ["jesus loves katie more", "katie loves jesus more", ""],
+        correctAnswer: "jesus loves katie more"
+      },
+      {
+        question: "what do I teas you about the most?",
+        choices: ["height", "baby feet", "your butt"],
+        correctAnswer: "baby feet"
+      },
+      {
+        question: "what pet started our relationship?",
+        choices: ["ender dragon", "nebula dragon", "ethereal end dragon"],
+        correctAnswer: "ethereal end dragon"
+      },
+      {
+        question: "what do you call it when you get a peice of wood stuck in your skin?",
+        choices: ["splinter", "sliver", ""],
+        correctAnswer: "splinter"
+      }
+    ];
+
+    var currentQuestion = 0;
+
+    function displayQuestion() {
+      var questionObj = questions[currentQuestion];
+      var questionElement = document.getElementById("question");
+      questionElement.innerHTML = `
+        <h2>Question ${currentQuestion + 1}:</h2>
+        <p>${questionObj.question}</p>
+        <ul>
+          <li><input type="radio" name="q${currentQuestion + 1}" value="${questionObj.choices[0]}"> ${questionObj.choices[0]}</li>
+          <li><input type="radio" name="q${currentQuestion + 1}" value="${questionObj.choices[1]}"> ${questionObj.choices[1]}</li>
+          <li><input type="radio" name="q${currentQuestion + 1}" value="${questionObj.choices[2]}"> ${questionObj.choices[2]}</li>
+        </ul>
+        <button onclick="checkAnswer(${currentQuestion + 1})">Submit</button>
+      `;
+    }
+
+    function checkAnswer(questionNumber) {
+      var selectedAnswer = document.querySelector(`input[name="q${questionNumber}"]:checked`).value;
+      var questionObj = questions[questionNumber - 1];
+
+      if (selectedAnswer === questionObj.correctAnswer) {
+        document.getElementById("feedback").innerHTML = "Correct answer!";
+        document.getElementById("result").style.display = "block";
+      } else {
+        document.getElementById("feedback").innerHTML = "Wrong answer. Try again!";
+        document.getElementById("result").style.display = "none";
+      }
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        displayQuestion();
+        document.getElementById("result").style.display = "none";
+      } else {
+        document.getElementById("question").innerHTML = "<h2>Quiz completed! copy and paste this link in new tab.        https://jumexglade.github.io/Jesus/Game.html";
+        document.getElementById("result").style.display = "none";
+      }
+    }
+
+    displayQuestion();
+  </script>
+</body>
+</html>
